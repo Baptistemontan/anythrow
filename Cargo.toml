@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["anythrow", "anythrow_macro"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+authors = ["Baptiste de Montangon"]
+license = "MIT"
+repository = ""
+description = ""
+readme = "./README.md"
+
+[workspace.dependencies]
+anythrow_macro = { version = "0.1.0", path = "./anythrow_macro" }
