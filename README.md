@@ -29,3 +29,7 @@ fn main() {
     assert!(result.is_err())
 }
 ```
+
+# Disclaimer
+
+This is absolutely not idiomatic Rust, please don't use this library.
