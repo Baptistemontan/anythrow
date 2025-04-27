@@ -10,3 +10,5 @@ readme = { workspace = true }
 
 [dependencies]
 anythrow_macro = { workspace = true }
+
+pin-project = { workspace = true }

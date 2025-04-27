@@ -13,3 +13,5 @@ readme = "./README.md"
 
 [workspace.dependencies]
 anythrow_macro = { version = "0.1.0", path = "./anythrow_macro" }
+
+pin-project = "1"
