@@ -12,3 +12,7 @@ readme = { workspace = true }
 anythrow_macro = { workspace = true }
 
 pin-project = { workspace = true }
+
+[features]
+default = []
+debug = []

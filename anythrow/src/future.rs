@@ -1,5 +1,5 @@
 use std::{
-    panic::{AssertUnwindSafe, UnwindSafe, catch_unwind},
+    panic::{AssertUnwindSafe, UnwindSafe},
     pin::Pin,
     task::{Context, Poll},
 };
@@ -22,11 +22,7 @@ where
 
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let this = self.project();
-        let res = catch_unwind(AssertUnwindSafe(move || this.0.poll(cx)));
-        match res {
-            Ok(v) => v,
-            Err(err) => Poll::Ready(<F::Output as ResultLike>::catch_or_resume(err)),
-        }
+        crate::try_catch(AssertUnwindSafe(move || this.0.poll(cx)))
     }
 }
 
