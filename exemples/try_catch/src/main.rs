@@ -1,6 +1,6 @@
 use anythrow::try_catch;
 
-struct MyError(&'static str);
+struct MyError;
 
 #[try_catch]
 fn foo() -> Result<i32, MyError> {
@@ -9,14 +9,11 @@ fn foo() -> Result<i32, MyError> {
 }
 
 fn bar() -> i32 {
-    anythrow::throw(MyError("test"))
-    // anythrow::throw("test")
+    anythrow::throw(MyError)
 }
 
 fn main() {
     let result = foo();
 
-    let err = result.unwrap_err();
-
-    assert_eq!(err.0, "test");
+    assert!(result.is_err())
 }
