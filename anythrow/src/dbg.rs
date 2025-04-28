@@ -23,13 +23,8 @@ impl Context {
 }
 
 impl TryCatchContext {
-    pub fn can_catch(&self, tid: TypeId) -> Option<bool> {
-        let can_catch = self.contexts.iter().rev().any(|ctx| ctx.can_catch(tid));
-        if self.contexts.is_empty() {
-            None
-        } else {
-            Some(can_catch)
-        }
+    pub fn can_catch(&self, tid: TypeId) -> bool {
+        self.contexts.iter().rev().any(|ctx| ctx.can_catch(tid))
     }
 
     pub const fn new() -> Self {
@@ -70,12 +65,10 @@ impl TryCatchContextGuard {
 pub fn check_tid<T: Any + Send>() {
     let tid = std::any::TypeId::of::<T>();
     let can_catch = CONTEXT.with_borrow(|ctx| ctx.can_catch(tid));
-    match can_catch {
-        None => todo!("No parent try catch."),
-        Some(false) => todo!(
-            "No parent try catch can catch value of type {:?}.",
+    if !can_catch {
+        todo!(
+            "No parent try/catch can catch value of type {:?}.",
             std::any::type_name::<T>()
-        ),
-        Some(true) => {}
+        )
     }
 }
