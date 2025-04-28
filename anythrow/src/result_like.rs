@@ -1,9 +1,8 @@
-use std::{
-    any::{Any, TypeId},
-    task::Poll,
-};
-
 use crate::error::OptionThrowNone;
+use std::{any::Any, task::Poll};
+
+#[cfg(any(debug_assertions, feature = "debug"))]
+use std::any::TypeId;
 
 type BoxErr = Box<dyn Any + Send>;
 
@@ -17,6 +16,7 @@ pub trait ResultLike: Sized {
         }
     }
 
+    #[cfg(any(debug_assertions, feature = "debug"))]
     fn catch_ids() -> impl IntoIterator<Item = TypeId>;
 }
 
@@ -31,6 +31,7 @@ where
         }
     }
 
+    #[cfg(any(debug_assertions, feature = "debug"))]
     fn catch_ids() -> impl IntoIterator<Item = TypeId> {
         Some(TypeId::of::<E>())
     }
@@ -44,6 +45,7 @@ impl<T> ResultLike for Option<T> {
         }
     }
 
+    #[cfg(any(debug_assertions, feature = "debug"))]
     fn catch_ids() -> impl IntoIterator<Item = TypeId> {
         Some(TypeId::of::<OptionThrowNone>())
     }
@@ -57,6 +59,7 @@ where
         T::try_from_err(err).map(Poll::Ready)
     }
 
+    #[cfg(any(debug_assertions, feature = "debug"))]
     fn catch_ids() -> impl IntoIterator<Item = TypeId> {
         T::catch_ids()
     }

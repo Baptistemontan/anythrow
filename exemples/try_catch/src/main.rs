@@ -9,8 +9,8 @@ fn foo() -> Result<i32, MyError> {
 }
 
 fn bar() -> i32 {
-    // anythrow::throw(MyError("test"))
-    anythrow::throw("test")
+    anythrow::throw(MyError("test"))
+    // anythrow::throw("test")
 }
 
 fn main() {
