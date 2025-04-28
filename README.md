@@ -2,7 +2,7 @@
 
 Tired of explicit error handling ? With `?` everywhere ? Some `Result<CoolStuff, SuperBoringError>` being your n°1 return type ?
 
-What if you could just throw you errors away and let **_some_** caller up the stack handle it ?
+What if you could just throw your errors away and let **_some_** caller up the stack handle it ?
 
 Try Anythrow !
 
