@@ -30,6 +30,54 @@ fn main() {
 }
 ```
 
+Also works with `Option<T>`:
+
+```rust
+use anythrow::try_catch;
+
+#[try_catch]
+fn foo() -> Option<i32> {
+    let val = bar();
+    Some(val)
+}
+
+fn bar() -> i32 {
+    anythrow::throw_none()
+}
+
+fn main() {
+    let result = foo();
+
+    assert!(result.is_none())
+}
+```
+
+And of course, works with async and behave as expected:
+
+```rust
+use anythrow::try_catch;
+
+#[try_catch]
+async fn foo() -> Option<i32> {
+    let val = bar().await;
+    Some(val)
+}
+
+async fn bar() -> i32 {
+    anythrow::throw_none()
+}
+
+fn main() {
+    let result = block_on(foo());
+
+    assert!(result.is_none())
+}
+```
+
+## Unwinding
+
+This crate use the unwind mechanism of panics to work, if you have `panic = "abort"` this is basically useless.
+
 # Disclaimer
 
 This is absolutely not idiomatic Rust, please don't use this library.
